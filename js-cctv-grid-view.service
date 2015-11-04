@@ -1,0 +1,11 @@
+Description=JavaScript CCTV Grid Camera Viewer
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/opt/qt-webkit-kiosk/qt-webkit-kiosk -platform linuxfb --uri=/opt/js-cctv-grid-view/index.html
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+
