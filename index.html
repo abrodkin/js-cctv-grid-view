@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<!--
+	Copyright (C) 2015 Alexey Brodkin
+
+	Permission is hereby granted, free of charge, to any person obtaining
+	a copy of this software and associated documentation files
+	(the "Software"), to deal in the Software without restriction,
+	including without limitation the rights to use, copy, modify, merge,
+	publish, distribute, sublicense, and/or sell copies of the Software,
+	and to permit persons to whom the Software is furnished to do so,
+	subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included
+	in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+	OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+	BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+	WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+	OTHER DEALINGS IN THE SOFTWARE.
+
+	Script prototype was originally taken from
+	https://stackoverflow.com/questions/12259976/refresh-all-images-with-javascript/12260110#12260110
+-->
+
+<html>
+	<head>
+		<title>JavaScript CCTV Grid</title>
+	</head>
+	<body style="margin: 0; padding: 0; background-color: black; overflow: hidden">
+		<!-- Add image URLs below -->
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px" >
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px">
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px">
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px">
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px">
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px">
+		<img src="http://localhost:8080/?action=snapshot" style="margin: -2px">
+
+		<script>
+		setInterval(function() {
+			var images = document.images;
+			var num_in_line = 3; // Number of images in a row
+			var num_in_column = Math.ceil(images.length / num_in_line);
+			for (var i=0; i<images.length; i++) {
+				images[i].src = images[i].src.replace(/\btime=[^&]*/, 'time=' + new Date().getTime());
+				images[i].width = window.innerWidth / num_in_line;
+				images[i].height = window.innerHeight / num_in_column;
+			}
+		}, 1000); // in milliseconds
+		</script>
+	</body>
+</html>
